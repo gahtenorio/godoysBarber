@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "336361315713",
+    "firebase_url": "https://godoys-barber.firebaseio.com",
+    "project_id": "godoys-barber",
+    "storage_bucket": "godoys-barber.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336361315713:android:5d4b95632cbd4bf24e5c80",
+        "android_client_info": {
+          "package_name": "com.gah.godoysbarber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336361315713-6t9thl64jsksk2tlt1nqr0mqk2gtp4pg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gah.godoysbarber",
+            "certificate_hash": "e8a0f08798e431777200b1c022f735b7d985d066"
+          }
+        },
+        {
+          "client_id": "336361315713-ha4kpjrd665ns20jfn5qglr4508l7a5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCb9NFMxC_WysxLOPbMi04GMfpPlwH1CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336361315713-ha4kpjrd665ns20jfn5qglr4508l7a5s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "336361315713-9hj2f2ahhbjlca9jkocsm2lmr14kuesu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.expo.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
