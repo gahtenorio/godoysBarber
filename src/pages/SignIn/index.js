@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Contexts/auth';
 import { useNavigation } from '@react-navigation/native';
+import { RectButton } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import BackButton from '../../components/BackButton';
 import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   Animated,
   KeyboardAvoidingView,
   Keyboard,
+  TouchableOpacity,
   Modal,
   ActivityIndicator,
   TouchableNativeFeedback
@@ -204,7 +205,7 @@ export default function Login() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
+            <RectButton
               style={styles.buttonLogin}
               onPress={handleLogin}
             >
@@ -213,7 +214,7 @@ export default function Login() {
               ) : (
                   <Text style={styles.textButtonLogin}>Entrar</Text>
                 )}
-            </TouchableOpacity>
+            </RectButton>
 
             <TouchableOpacity
               style={styles.forgotPasswordButton}

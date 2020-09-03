@@ -3,10 +3,9 @@ import { View } from 'react-native';
 
 import styles from './styles';
 
-export default function s() {
+export default function Schedule() {
   return (
     <View style={styles.container}>
-
     </View>
   );
 }

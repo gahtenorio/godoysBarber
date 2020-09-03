@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Contexts/auth';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { RectButton } from 'react-native-gesture-handler';
 import {
   View,
   Text,
-  TouchableOpacity,
   Animated,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity,
+  SafeAreaView
 } from 'react-native';
 
 import styles from './styles';
@@ -55,7 +57,7 @@ export default function Login() {
 
   return (
     <>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Animated.Image
           style={[
             {
@@ -85,14 +87,14 @@ export default function Login() {
           ]}
         >
 
-          <TouchableOpacity
+          <RectButton
             style={[styles.button, { backgroundColor: '#814B0F' }]}
             onPress={navigateToSignIn}
           >
             <Text style={styles.textButton}>Já tenho conta</Text>
-          </TouchableOpacity>
+          </RectButton>
 
-          <TouchableOpacity
+          <RectButton
             style={[styles.button, { backgroundColor: '#3B5998', flexDirection: 'row' }]}
             onPress={handleSignInWithFacebook}
           >
@@ -103,9 +105,9 @@ export default function Login() {
                 <Text style={styles.textButton}>Continuar com o Facebook</Text>
               )
             }
-          </TouchableOpacity>
+          </RectButton>
 
-          <TouchableOpacity
+          <RectButton
             style={[styles.button, { backgroundColor: '#db4a39', flexDirection: 'row' }]}
             onPress={handleSignInWithGoogle}
           >
@@ -116,9 +118,9 @@ export default function Login() {
                 <Text style={styles.textButton}>Continuar com o Google</Text>
               )
             }
-          </TouchableOpacity>
+          </RectButton>
         </Animated.View>
-      </View>
+      </SafeAreaView>
 
       <View style={styles.footer}>
         <TouchableOpacity

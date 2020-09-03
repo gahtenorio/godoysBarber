@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Contexts/auth';
+import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import { AntDesign } from '@expo/vector-icons';
 import Icon from '@expo/vector-icons/Ionicons';
+import { RectButton } from 'react-native-gesture-handler';
 import BackButton from '../../components/BackButton';
 import {
   Text,
@@ -12,13 +16,16 @@ import {
   Modal,
   ActivityIndicator,
   KeyboardAvoidingView,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Image
 } from 'react-native';
 
 import styles from './styles';
 import logo from '../../assets/logo.png';
 
 export default function SignUp() {
+  const navigation = useNavigation();
+
   const [offset] = useState(new Animated.ValueXY({ x: 150, y: 0 }));
   const [opacity] = useState(new Animated.Value(0));
   const [logoSize] = useState(new Animated.ValueXY({ x: 200, y: 200 }));
@@ -26,9 +33,12 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [whatsApp, setWhatsApp] = useState('');
 
   const [seePassword, setSeePassword] = useState(false);
+
+  const [imageURL, setImageURL] = useState('');
+  const [profileIcon, setProfileIcon] = useState(false);
+  const [buttonPickerPhoto, setButtonPickerPhoto] = useState(false);
 
   const {
     signUp,
@@ -37,12 +47,19 @@ export default function SignUp() {
     modalTitle,
     modalButton,
     modalButtonClose,
-    lottieLoading
+    lottieLoading,
+    modalPickerPhotoVisible,
+    uploadImage,
+    jump,
+    buttonJump,
+    modalLoading,
+    sucessModalVisible,
+    modalSucessClose
   } = useContext(AuthContext);
 
   function handleSignUp() {
     Keyboard.dismiss();
-    signUp(email, password, name, whatsApp);
+    signUp(email, password, name);
   }
 
   function closeModal() {
@@ -51,6 +68,19 @@ export default function SignUp() {
 
   function toggleSeePassword() {
     setSeePassword(!seePassword);
+  }
+
+  function handleUploadImage() {
+    uploadImage(imageURL);
+  }
+
+  function handleJump() {
+    jump();
+  }
+
+  function navigateToSignIn() {
+    modalSucessClose();
+    navigation.navigate('SignIn');
   }
 
   useEffect(() => {
@@ -95,6 +125,32 @@ export default function SignUp() {
       })
     ]).start()
   }
+
+  async function openImagePickerAsync() {
+    const permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('É necessária permissão para acessar o rolo da câmera!!');
+      return;
+    }
+
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1,
+      });
+      if (result.cancelled) {
+      } else {
+        setButtonPickerPhoto(true);
+        setProfileIcon(true);
+        setImageURL(result.uri);
+      }
+    } catch (error) {
+      alert('Ocorreu um erro');
+    }
+  };
 
   return (
     <>
@@ -146,19 +202,6 @@ export default function SignUp() {
             <View style={styles.inputArea}>
               <TextInput
                 style={styles.input}
-                placeholder='whatsApp'
-                placeholderTextColor='#040404'
-                keyboardType='numeric'
-                maxLength={11}
-                value={whatsApp}
-                onChangeText={setWhatsApp}
-              />
-              <Icon name='logo-whatsapp' size={20} style={{ position: 'absolute', right: 10 }} />
-            </View>
-
-            <View style={styles.inputArea}>
-              <TextInput
-                style={styles.input}
                 placeholder='Email'
                 placeholderTextColor='#040404'
                 autoCapitalize='none'
@@ -181,14 +224,14 @@ export default function SignUp() {
                 value={password}
                 onChangeText={setPassword}
               />
-              <TouchableOpacity
+              <RectButton
                 style={{ position: 'absolute', right: 10 }}
                 onPress={toggleSeePassword}>
                 <Icon name={seePassword ? 'md-eye' : 'md-eye-off'} size={20} />
-              </TouchableOpacity>
+              </RectButton>
             </View>
 
-            <TouchableOpacity
+            <RectButton
               style={styles.button}
               onPress={handleSignUp}
             >
@@ -197,7 +240,7 @@ export default function SignUp() {
               ) : (
                   <Text style={styles.textButton}>Finalizar cadastro</Text>
                 )}
-            </TouchableOpacity>
+            </RectButton>
           </Animated.View>
         </KeyboardAvoidingView>
       </TouchableNativeFeedback>
@@ -219,6 +262,91 @@ export default function SignUp() {
                 onPress={closeModal}
               >
                 <Text style={styles.textStyle}>{modalButton}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalPickerPhotoVisible}
+        >
+          <View style={styles.pickerCenteredView}>
+            <View style={styles.pickerModalView}>
+              <Text style={styles.pickerModalTitle}>Adicione uma foto ao seu perfil</Text>
+              <Text style={styles.pickerModalText}>Olá, {name} {'\n'} Nos ajude a identificá-lo.</Text>
+
+              <TouchableOpacity
+                style={styles.pickerModalImageButton}
+                onPress={openImagePickerAsync}
+              >
+                {profileIcon ?
+                  <Image
+                    source={{ uri: imageURL }}
+                    style={styles.pickerModalImage}
+                  />
+                  :
+                  <AntDesign name='user' size={150} color='#FFF' />
+                }
+                <AntDesign name='camera' size={25} color='#040404' style={styles.pickerModalImageIcon} />
+              </TouchableOpacity>
+
+              <View style={styles.pickerModalButtons}>
+
+                {buttonPickerPhoto ?
+                  <TouchableOpacity
+                    style={{ ...styles.pickerOpenButton, backgroundColor: '#814B0F' }}
+                    onPress={handleUploadImage}
+                  >
+                    {modalLoading ? (
+                      <ActivityIndicator color="#FFF" size="small" />
+                    ) : (
+                        <Text style={styles.pickerTextStyle}>Concluir</Text>
+                      )}
+                  </TouchableOpacity>
+                  : <View />
+                }
+
+                {buttonJump ?
+                  <TouchableOpacity
+                    style={styles.pickerJumpButton}
+                    onPress={handleJump}
+                  >
+                    {modalLoading ? (
+                      <ActivityIndicator color="#FFF" size="small" />
+                    ) : (
+                        <Text style={styles.pickerJumpButtonText}>Pular</Text>
+                      )}
+                  </TouchableOpacity>
+                  :
+                  <View />
+                }
+
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
+
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={sucessModalVisible}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>Conta criada com sucesso</Text>
+              <Text style={styles.modalText}>Faça login para continuar</Text>
+
+              <TouchableOpacity
+                style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
+                onPress={navigateToSignIn}
+              >
+                <Text style={styles.textStyle}>Fazer login</Text>
               </TouchableOpacity>
             </View>
           </View>

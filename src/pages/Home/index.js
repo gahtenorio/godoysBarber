@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import firebase from '../../services/firebase';
+import { RectButton } from 'react-native-gesture-handler';
 import {
   View,
   Text,
-  TouchableOpacity,
   FlatList,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import { AuthContext } from '../../Contexts/auth';
 
@@ -16,7 +16,7 @@ import img from '../../assets/hair.png';
 
 export default function Home() {
 
-  const { user, signOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,20 +36,20 @@ export default function Home() {
         })
       })
     }
-
     loadServices();
   }, []);
+
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.textContainer}>
-          <Text style={styles.helloText}>Olá, {user && user.name}</Text>
+          <Text style={styles.helloText}>Bem-vindo, {user && user.name}</Text>
           <Text style={styles.description}>Veja nossos serviços disponíveis</Text>
         </View>
 
         {loading ?
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#040404' }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#191919' }}>
             <ActivityIndicator size='large' color='#FFF' />
           </View>
           :
@@ -79,13 +79,14 @@ export default function Home() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
+        <RectButton
           style={styles.button}
-          onPress={() => signOut()}
+          onPress={() => { }}
         >
           <Text style={styles.buttonText}>Solicitar agendamento</Text>
-        </TouchableOpacity>
+        </RectButton>
       </View>
+
     </>
   );
 }

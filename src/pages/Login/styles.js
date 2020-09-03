@@ -51,6 +51,7 @@ export default StyleSheet.create({
     backgroundColor: '#040404',
     borderTopWidth: 1,
     borderColor: '#814B0F',
+    paddingBottom: 10
   },
 
   signUpButton: {

@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from 'react';
 import *as Facebook from 'expo-facebook';
 import *as GoogleSignIn from 'expo-google-sign-in'
 import firebase from '../services/firebase';
-import api from '../services/api';
 import { AsyncStorage } from 'react-native';
 
 export const AuthContext = createContext({});
@@ -17,6 +16,10 @@ export default function AuthProvider({ children }) {
   const [modalText, setModalText] = useState('');
   const [modalTitle, setModalTitle] = useState('');
   const [modalButton, setModalButton] = useState('');
+  const [modalPickerPhotoVisible, setModalPickerPhotoVisible] = useState(false);
+  const [buttonJump, setButtonJump] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false);
+  const [sucessModalVisible, setSucessModalVisible] = useState(false);
 
   const [user, setUser] = useState(null);
 
@@ -45,24 +48,24 @@ export default function AuthProvider({ children }) {
     if (type === "success") {
       setFacebookLoading(true);
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
-      const res = await api.get(`me?access_token=${token}`);
 
       firebase.auth().signInWithCredential(credential)
         .then(async (value) => {
           let uid = value.user.uid;
           firebase.database().ref('users').child(uid).set({
-            name: res.data.name,
-            whatsApp: 'Nenhum número cadastrado'
+            name: value.user.displayName,
+            photoURL: value.user.photoURL,
           }).then(() => {
             let data = {
-              name: res.data.name,
-              whatsApp: 'Nenhum número cadastrado',
+              name: value.user.displayName,
+              photoURL: value.user.photoURL,
               uid: uid,
               email: value.user.email
             }
             setUser(data);
             storageUser(data);
             setFacebookLoading(false);
+
           })
         }).catch((error) => {
           alert('Algo deu errado');
@@ -71,29 +74,42 @@ export default function AuthProvider({ children }) {
   }
 
   async function signInWithGoogle() {
-    try {
-      await GoogleSignIn.askForPlayServicesAsync();
-      const { type, user } = await GoogleSignIn.signInAsync();
-      if (type === 'success') {
-        setGoogleLoading(true);
-        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-        const credential = firebase.auth.GoogleAuthProvider.credential(user.auth.idToken, user.auth.accessToken);
-        const googleProfileData = await firebase.auth().signInWithCredential(credential);
-        alert(googleProfileData);
-      }
-      setGoogleLoading(false);
-    } catch ({ message }) {
-      setGoogleLoading(false);
-      alert('login: Error:' + message);
+    await GoogleSignIn.askForPlayServicesAsync();
+    const { type, user } = await GoogleSignIn.signInAsync();
+
+    if (type === 'success') {
+      setGoogleLoading(true);
+      await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+      const credential = firebase.auth.GoogleAuthProvider.credential(user.auth.idToken, user.auth.accessToken);
+
+      await firebase.auth().signInWithCredential(credential)
+        .then(async (value) => {
+          let uid = value.user.uid;
+          firebase.database().ref('users').child(uid).set({
+            name: value.user.displayName,
+            photoURL: value.user.photoURL,
+          }).then(() => {
+            let data = {
+              name: value.user.displayName,
+              photoURL: value.user.photoURL,
+              uid: uid,
+              email: value.user.email
+            }
+            setUser(data);
+            storageUser(data);
+            setGoogleLoading(false);
+          })
+        }).catch((error) => {
+          alert('Algo deu errado');
+        });
     }
   }
 
-  async function signUp(email, password, name, whatsApp) {
+  async function signUp(email, password, name) {
     if (
       email === ''
       || name === ''
       || password === ''
-      || whatsApp === ''
     ) {
       setModalVisible(true);
       setModalTitle('Houve um erro 😕');
@@ -106,19 +122,12 @@ export default function AuthProvider({ children }) {
         .then(async (value) => {
           let uid = value.user.uid;
 
+          await AsyncStorage.setItem('userUid', uid);
           await firebase.database().ref('users').child(uid).set({
             name: name,
-            whatsApp: whatsApp
           }).then(() => {
-            let data = {
-              uid: uid,
-              name: name,
-              whatsApp: whatsApp,
-              email: value.user.email
-            };
-            setUser(data);
-            storageUser(data);
             setLottieLoading(false);
+            setModalPickerPhotoVisible(true);
           })
         }).catch((error) => {
           setLottieLoading(false);
@@ -179,6 +188,7 @@ export default function AuthProvider({ children }) {
               let data = {
                 uid: uid,
                 name: snapshot.val().name,
+                photoURL: snapshot.val().photoURL,
                 whatsApp: snapshot.val().whatsApp,
                 email: value.user.email,
               }
@@ -236,8 +246,49 @@ export default function AuthProvider({ children }) {
       })
   }
 
+  async function uploadImage(imageURL) {
+    setButtonJump(false);
+    setModalLoading(true);
+    const userUid = await AsyncStorage.getItem('userUid');
+    try {
+      const res = await fetch(imageURL);
+
+      const blob = await res.blob();
+
+      await firebase.storage().ref().child(`profile/${userUid}`).put(blob).then(async () => {
+        const url = await firebase.storage().ref().child(`profile/${userUid}`).getDownloadURL()
+        await firebase.database().ref('users').child(userUid).update({
+          photoURL: url
+        });
+        await AsyncStorage.setItem('photoProfile', url);
+      })
+      setModalPickerPhotoVisible(false);
+      setSucessModalVisible(true);
+      setModalLoading(false);
+    } catch (error) {
+      setModalLoading(false);
+      console.log(error)
+    }
+  }
+
+  async function jump() {
+    setModalLoading(true);
+
+    const userUid = await AsyncStorage.getItem('userUid');
+    await firebase.database().ref('users').child(userUid).update({
+      photoURL: ''
+    });
+    setModalPickerPhotoVisible(false);
+    setSucessModalVisible(true);
+    setModalLoading(false);
+  }
+
   function modalButtonClose() {
     setModalVisible(false);
+  }
+
+  function modalSucessClose() {
+    setSucessModalVisible(false);
   }
 
   return (
@@ -254,10 +305,17 @@ export default function AuthProvider({ children }) {
       modalTitle,
       modalButton,
       modalButtonClose,
+      modalPickerPhotoVisible,
       lottieLoading,
       facebookLoading,
       googleLoading,
-      loading
+      uploadImage,
+      jump,
+      loading,
+      buttonJump,
+      modalLoading,
+      sucessModalVisible,
+      modalSucessClose
     }}>
       {children}
     </AuthContext.Provider>

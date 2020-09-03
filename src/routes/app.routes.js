@@ -8,6 +8,9 @@ import Header from '../components/Header';
 import Home from '../pages/Home';
 import Agendamentos from '../pages/Schedule';
 import Produtos from '../pages/Store';
+import Profile from '../pages/Profile';
+
+import DrawerContent from '../pages/DrawerContent';
 
 const AppStack = createStackNavigator();
 const AppTab = createBottomTabNavigator();
@@ -24,12 +27,6 @@ const icons = {
     name: 'ios-pricetag'
   }
 };
-
-function DrawerNavigator() {
-  <AppDrawer.Navigator>
-    <AppDrawer.Screen />
-  </AppDrawer.Navigator>
-}
 
 function TabNavigator() {
   return (
@@ -56,7 +53,7 @@ function TabNavigator() {
   );
 }
 
-export default function AppRoutes() {
+function StackNavigator() {
   return (
     <AppStack.Navigator
       screenOptions={{
@@ -73,6 +70,41 @@ export default function AppRoutes() {
             borderBottomWidth: 0.5,
             borderColor: '#808080'
           }
+        }}
+      />
+    </AppStack.Navigator>
+  );
+}
+function DrawerNavigator() {
+  return (
+    <AppDrawer.Navigator
+      drawerContent={() => <DrawerContent />}
+    >
+      <AppDrawer.Screen name='Stack' component={StackNavigator} />
+    </AppDrawer.Navigator>
+
+  );
+}
+
+export default function AppRoutes() {
+  return (
+    <AppStack.Navigator
+      screenOptions={{
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+      }}
+    >
+      <AppStack.Screen
+        name='Drawer'
+        component={DrawerNavigator}
+        options={{
+          headerShown: false
+        }}
+      />
+      <AppStack.Screen
+        name='Profile'
+        component={Profile}
+        options={{
+          headerShown: false
         }}
       />
     </AppStack.Navigator>

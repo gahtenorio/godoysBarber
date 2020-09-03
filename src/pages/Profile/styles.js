@@ -3,67 +3,84 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#040404'
   },
 
-  backButton: {
-    position: 'absolute',
-    top: 0
+  profileContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 100
   },
 
-  inputContainer: {
-    width: '90%',
+  imageContainer: {
+    width: 200,
+    height: 200,
+    borderRadius: 180,
+    marginBottom: 30,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#737373'
+  },
+
+  imageIcon: {
+    backgroundColor: '#F1F1F1',
+    padding: 10,
+    borderRadius: 180,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 20,
+    right: 0
+  },
+
+  description: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
+    color: '#FFF',
+    fontSize: 20,
+    fontFamily: 'Ubuntu_700Bold',
+  },
+
+  dataContainer: {
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginRight: 20,
     marginTop: 30
   },
 
-  inputArea: {
-    backgroundColor: '#808080',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  title: {
+    fontSize: 18,
+    fontFamily: 'Roboto_700Bold',
+    color: '#737380'
+  },
+
+  data: {
+    marginLeft: 10,
+    fontSize: 18,
+    fontFamily: 'Ubuntu_700Bold',
+    color: '#737380'
+  },
+
+  buttonContainer: {
     alignItems: 'center',
-    width: '100%',
-    borderRadius: 7,
-    marginBottom: 10,
-    padding: 10
+    marginTop: 100,
+    marginBottom: 50
   },
 
-  input: {
-    fontFamily: 'Roboto_500Medium',
-    fontSize: 16,
-    paddingRight: 25,
-    width: '100%',
-  },
-
-  buttonLogin: {
+  saveButton: {
     backgroundColor: '#814B0F',
-    width: '100%',
+    width: '90%',
     height: 45,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7
   },
 
-  textButtonLogin: {
+  saveButtonText: {
     color: '#FFF',
     fontFamily: 'Roboto_700Bold',
     fontSize: 18
-  },
-
-  forgotPasswordButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15
-  },
-
-  textForgotPassword: {
-    textAlign: 'center',
-    color: '#808080',
-    fontFamily: 'Roboto_400Regular',
-    fontSize: 14,
-    marginRight: 5
   },
 
   centeredView: {
@@ -122,5 +139,7 @@ export default StyleSheet.create({
     fontSize: 15,
     color: '#737380',
     textAlign: 'center'
-  }
+  },
+
+
 });
