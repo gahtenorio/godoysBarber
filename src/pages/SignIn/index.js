@@ -12,7 +12,6 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableOpacity,
-  Modal,
   ActivityIndicator,
   TouchableNativeFeedback
 } from 'react-native';
@@ -20,6 +19,7 @@ import {
 import styles from './styles';
 import logo from '../../assets/logo.png';
 import godoysBarber from '../../assets/godoysBarber.png';
+import AuthModal from '../../components/AuthModal';
 
 export default function Login() {
 
@@ -37,11 +37,6 @@ export default function Login() {
 
   const {
     signIn,
-    modalVisible,
-    modalText,
-    modalTitle,
-    modalButton,
-    modalButtonClose,
     lottieLoading
   } = useContext(AuthContext);
 
@@ -51,10 +46,6 @@ export default function Login() {
 
   function navigateToForgotPassword() {
     navigation.navigate('ForgotPassword');
-  }
-
-  function closeModal() {
-    modalButtonClose();
   }
 
   function handleLogin() {
@@ -226,28 +217,7 @@ export default function Login() {
           </Animated.View>
         </KeyboardAvoidingView>
       </TouchableNativeFeedback>
-
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalTitle}>{modalTitle}</Text>
-              <Text style={styles.modalText}>{modalText}</Text>
-
-              <TouchableOpacity
-                style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
-                onPress={closeModal}
-              >
-                <Text style={styles.textStyle}>{modalButton}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </View>
+      <AuthModal />
     </>
   );
 }

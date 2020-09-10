@@ -25,24 +25,15 @@ export default StyleSheet.create({
     color: '#737380'
   },
 
-  services: {
-
-  },
-
-  buttonContainer: {
-    width: '100%',
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor: '#191919',
-    alignItems: 'center'
-  },
-
   button: {
-    width: '80%',
+    position: 'absolute',
+    right: 10,
+    bottom: 30,
     height: 40,
+    width: 80,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#814B0F',
+    backgroundColor: '#D2691E',
     borderRadius: 8
   },
 
@@ -61,6 +52,7 @@ export default StyleSheet.create({
     marginBottom: 15,
     padding: 5,
     borderWidth: 1,
+    borderRadius: 10,
     borderColor: '#808080'
   },
 
@@ -76,7 +68,6 @@ export default StyleSheet.create({
     backgroundColor: '#9b9b9b',
     opacity: 0.5,
     marginLeft: 20,
-    marginRight: 20
   },
 
   detailService: {
@@ -87,13 +78,18 @@ export default StyleSheet.create({
     color: '#FFF',
     fontFamily: 'Ubuntu_700Bold',
     fontSize: 18,
-    marginBottom: 5
+    marginBottom: 5,
+    marginRight: 10,
+    marginLeft: 20,
+    maxWidth: 170
   },
 
   priceServiceText: {
-    color: '#FFF',
+    color: '#737380',
     fontFamily: 'Roboto_500Medium',
-    fontSize: 16
+    fontSize: 16,
+    marginRight: 10,
+    marginLeft: 20
   },
 
 

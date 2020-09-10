@@ -8,7 +8,9 @@ import Header from '../components/Header';
 import Home from '../pages/Home';
 import Agendamentos from '../pages/Schedule';
 import Produtos from '../pages/Store';
+import Cortes from '../pages/Cut';
 import Profile from '../pages/Profile';
+import Detail from '../pages/Detail';
 
 import DrawerContent from '../pages/DrawerContent';
 
@@ -25,6 +27,10 @@ const icons = {
   },
   Produtos: {
     name: 'ios-pricetag'
+  },
+
+  Cortes: {
+    name: 'ios-cut'
   }
 };
 
@@ -42,13 +48,14 @@ function TabNavigator() {
         style: {
           backgroundColor: '#040404'
         },
-        activeTintColor: '#814B0F',
+        activeTintColor: '#D2691E',
         inactiveTintColor: '#808080',
       }}
     >
       <AppTab.Screen name='Agendamentos' component={Agendamentos} />
       <AppTab.Screen name='Home' component={Home} />
       <AppTab.Screen name='Produtos' component={Produtos} />
+      <AppTab.Screen name='Cortes' component={Cortes} />
     </AppTab.Navigator>
   );
 }
@@ -103,6 +110,14 @@ export default function AppRoutes() {
       <AppStack.Screen
         name='Profile'
         component={Profile}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <AppStack.Screen
+        name='Detail'
+        component={Detail}
         options={{
           headerShown: false
         }}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import firebase from '../../services/firebase';
+import { RectButton } from 'react-native-gesture-handler';
 import BackButton from '../../components/BackButton';
 import {
   View,
@@ -86,7 +87,7 @@ export default function ForgotPassword() {
               value={email}
               onChangeText={setEmail}
             />
-            <TouchableOpacity
+            <RectButton
               style={styles.button}
               onPress={handleSubmit}
             >
@@ -95,7 +96,7 @@ export default function ForgotPassword() {
               ) : (
                   <Text style={styles.textButton}>Recuperar senha</Text>
                 )}
-            </TouchableOpacity>
+            </RectButton>
           </View>
         </View>
       </TouchableNativeFeedback>
@@ -112,7 +113,7 @@ export default function ForgotPassword() {
               <Text style={styles.modalText}>{modalText}</Text>
 
               <TouchableOpacity
-                style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
+                style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
                 onPress={() => setVisible(false)}
               >
                 <Text style={styles.textStyle}>{modalButton}</Text>

@@ -50,7 +50,7 @@ export default StyleSheet.create({
     width: '100%',
     backgroundColor: '#040404',
     borderTopWidth: 1,
-    borderColor: '#814B0F',
+    borderColor: '#D2691E',
     paddingBottom: 10
   },
 
@@ -63,7 +63,7 @@ export default StyleSheet.create({
   },
 
   signUpTextButton: {
-    color: '#814B0F',
+    color: '#D2691E',
     fontSize: 18,
     fontFamily: 'Roboto_700Bold',
     marginLeft: 16

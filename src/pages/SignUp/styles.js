@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
 
   button: {
-    backgroundColor: '#814B0F',
+    backgroundColor: '#D2691E',
     width: '100%',
     height: 45,
     alignItems: 'center',

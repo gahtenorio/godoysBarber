@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
-import firebase from '../../services/firebase';
+import { AuthContext } from '../../Contexts/auth';
 import { RectButton } from 'react-native-gesture-handler';
+import firebase from '../../services/firebase';
+import SelectServiceModal from '../../components/SelectServiceModal';
 import {
   View,
   Text,
@@ -8,7 +10,6 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import { AuthContext } from '../../Contexts/auth';
 
 import styles from './styles';
 
@@ -20,6 +21,16 @@ export default function Home() {
 
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedServiceName, setSelectedServiceName] = useState('');
+  const [selectedServicePrice, setSelectedServicePrice] = useState();
+
+  function handleServiceChoose(name, price) {
+    setSelectedServiceName(name);
+    setSelectedServicePrice(price);
+    setModalVisible(true);
+  }
 
   useEffect(() => {
     async function loadServices() {
@@ -70,6 +81,12 @@ export default function Home() {
                     <Text style={styles.nameServiceText}>{service.name}</Text>
                     <Text style={styles.priceServiceText}>R$ {service.price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</Text>
                   </View>
+                  <RectButton
+                    style={styles.button}
+                    onPress={() => handleServiceChoose(service.name, service.price)}
+                  >
+                    <Text style={styles.buttonText}>Agendar</Text>
+                  </RectButton>
                 </View>
               </View>
             )}
@@ -77,16 +94,12 @@ export default function Home() {
         }
 
       </View>
-
-      <View style={styles.buttonContainer}>
-        <RectButton
-          style={styles.button}
-          onPress={() => { }}
-        >
-          <Text style={styles.buttonText}>Solicitar agendamento</Text>
-        </RectButton>
-      </View>
-
+      <SelectServiceModal
+        show={modalVisible}
+        setShow={setModalVisible}
+        serviceName={selectedServiceName}
+        servicePrice={selectedServicePrice}
+      />
     </>
   );
 }

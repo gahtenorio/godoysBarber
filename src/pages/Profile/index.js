@@ -136,7 +136,7 @@ export default function Profile() {
               <Text style={styles.modalText}>As modificações só seram aplicadas em contas não vinculadas ao Facebook ou Google</Text>
 
               <TouchableOpacity
-                style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
+                style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
                 onPress={handleSignOut}
               >
                 <Text style={styles.textStyle}>OK</Text>

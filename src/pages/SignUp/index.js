@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Icon from '@expo/vector-icons/Ionicons';
 import { RectButton } from 'react-native-gesture-handler';
 import BackButton from '../../components/BackButton';
+import AuthModal from '../../components/AuthModal';
 import {
   Text,
   View,
@@ -42,11 +43,6 @@ export default function SignUp() {
 
   const {
     signUp,
-    modalVisible,
-    modalText,
-    modalTitle,
-    modalButton,
-    modalButtonClose,
     lottieLoading,
     modalPickerPhotoVisible,
     uploadImage,
@@ -60,10 +56,6 @@ export default function SignUp() {
   function handleSignUp() {
     Keyboard.dismiss();
     signUp(email, password, name);
-  }
-
-  function closeModal() {
-    modalButtonClose();
   }
 
   function toggleSeePassword() {
@@ -246,27 +238,7 @@ export default function SignUp() {
       </TouchableNativeFeedback>
 
 
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalTitle}>{modalTitle}</Text>
-              <Text style={styles.modalText}>{modalText}</Text>
-
-              <TouchableOpacity
-                style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
-                onPress={closeModal}
-              >
-                <Text style={styles.textStyle}>{modalButton}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </View>
+      <AuthModal />
 
       <View style={styles.centeredView}>
         <Modal
@@ -298,7 +270,7 @@ export default function SignUp() {
 
                 {buttonPickerPhoto ?
                   <TouchableOpacity
-                    style={{ ...styles.pickerOpenButton, backgroundColor: '#814B0F' }}
+                    style={{ ...styles.pickerOpenButton, backgroundColor: '#D2691E' }}
                     onPress={handleUploadImage}
                   >
                     {modalLoading ? (
@@ -343,7 +315,7 @@ export default function SignUp() {
               <Text style={styles.modalText}>Faça login para continuar</Text>
 
               <TouchableOpacity
-                style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
+                style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
                 onPress={navigateToSignIn}
               >
                 <Text style={styles.textStyle}>Fazer login</Text>

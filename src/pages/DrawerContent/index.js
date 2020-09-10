@@ -144,14 +144,14 @@ export default function DrawerContent() {
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
-                  style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
+                  style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
                   onPress={() => signOut()}
                 >
                   <Text style={styles.textStyle}>Sim</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  style={{ ...styles.openButton, backgroundColor: '#814B0F' }}
+                  style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
                   onPress={() => setModalVisible(false)}
                 >
                   <Text style={styles.textStyle}>Não</Text>

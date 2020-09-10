@@ -88,7 +88,7 @@ export default function Login() {
         >
 
           <RectButton
-            style={[styles.button, { backgroundColor: '#814B0F' }]}
+            style={[styles.button, { backgroundColor: '#D2691E' }]}
             onPress={navigateToSignIn}
           >
             <Text style={styles.textButton}>Já tenho conta</Text>
@@ -127,7 +127,7 @@ export default function Login() {
           style={styles.signUpButton}
           onPress={navigateToSignUp}
         >
-          <Ionicons name='ios-log-in' size={25} color='#814B0F' />
+          <Ionicons name='ios-log-in' size={25} color='#D2691E' />
           <Text style={styles.signUpTextButton}>Criar conta</Text>
         </TouchableOpacity>
       </View>

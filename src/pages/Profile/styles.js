@@ -69,7 +69,7 @@ export default StyleSheet.create({
   },
 
   saveButton: {
-    backgroundColor: '#814B0F',
+    backgroundColor: '#D2691E',
     width: '90%',
     height: 45,
     alignItems: 'center',

@@ -1,46 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#040404',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  inputsContainer: {
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  input: {
-    height: 45,
-    width: '100%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#808080',
-    textAlign: 'center',
-    fontFamily: 'Roboto_500Medium',
-    fontSize: 16,
-    color: '#FFF'
-  },
-
-  button: {
-    width: '100%',
-    height: 45,
-    backgroundColor: '#D2691E',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 7,
-    marginTop: 20
-  },
-
-  textButton: {
-    color: '#FFF',
-    fontFamily: 'Roboto_700Bold',
-    fontSize: 18
-  },
-
   centeredView: {
     position: 'absolute',
     top: 0,
@@ -97,5 +57,5 @@ export default StyleSheet.create({
     fontSize: 15,
     color: '#737380',
     textAlign: 'center'
-  },
+  }
 });
