@@ -10,6 +10,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#040404"
     },
+    "notification": {
+      "icon": "./assets/icon.png"
+    },
     "androidNavigationBar": {
       "barStyle": "light-content",
       "backgroundColor": "#040404"

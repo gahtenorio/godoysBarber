@@ -10,7 +10,8 @@ export default StyleSheet.create({
     width: '100%',
     height: 500,
     resizeMode: 'cover',
-    marginBottom: 30
+    marginBottom: 30,
+    backgroundColor: '#737373',
   },
 
   buttonContainer: {

@@ -28,7 +28,7 @@ export default function Cut() {
             userName: childItem.val().userName,
             imageURL: childItem.val().imageURL
           };
-          setCuts(oldArray => [...oldArray, cuts]);
+          setCuts(oldArray => [...oldArray, cuts].reverse());
         })
         setLoading(false);
       })

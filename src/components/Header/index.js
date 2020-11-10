@@ -21,7 +21,7 @@ export default function Header() {
         source={godoysBarber}
       />
       <TouchableOpacity>
-        <Ionicons name='ios-notifications' size={35} color='#9b9b9b' />
+        <Ionicons name='ios-notifications' size={35} color='transparent' />
       </TouchableOpacity>
     </View >
   );

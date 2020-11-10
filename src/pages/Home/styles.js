@@ -28,7 +28,6 @@ export default StyleSheet.create({
   button: {
     position: 'absolute',
     right: 10,
-    bottom: 30,
     height: 40,
     width: 80,
     alignItems: 'center',
@@ -58,7 +57,8 @@ export default StyleSheet.create({
 
   servicesContainer: {
     flexDirection: 'row',
-    padding: 25
+    padding: 25,
+    alignItems: 'center'
   },
 
   line: {
@@ -91,99 +91,5 @@ export default StyleSheet.create({
     marginRight: 10,
     marginLeft: 20
   },
-
-
-  centeredView: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  modalView: {
-    backgroundColor: '#040404',
-    borderRadius: 20,
-    height: '100%',
-    width: '100%',
-    padding: 30,
-    alignItems: 'center',
-  },
-
-  modalButtons: {
-    position: 'absolute',
-    bottom: 80,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  openButton: {
-    borderRadius: 20,
-    padding: 12,
-    paddingLeft: 30,
-    paddingRight: 30,
-    elevation: 2,
-  },
-
-  jumpButton: {
-    marginTop: 15
-  },
-
-  jumpButtonText: {
-    color: '#737380',
-    fontFamily: 'Roboto_400Regular',
-    fontSize: 16
-  },
-
-  textStyle: {
-    color: '#FFF',
-    fontFamily: 'Roboto_700Bold',
-    fontSize: 14,
-    textAlign: 'center'
-  },
-
-  modalTitle: {
-    fontSize: 18,
-    fontFamily: 'Ubuntu_700Bold',
-    color: '#FFF',
-    marginBottom: 20
-  },
-
-  modalImageButton: {
-    width: 200,
-    height: 200,
-    borderRadius: 180,
-    marginTop: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#737373'
-  },
-
-  modalImageIcon: {
-    backgroundColor: '#F1F1F1',
-    padding: 10,
-    borderRadius: 180,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 20,
-    right: 0
-  },
-
-  modalImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 180,
-  },
-
-  modalText: {
-    fontFamily: 'Roboto_500Medium',
-    lineHeight: 24,
-    fontSize: 15,
-    color: '#737380',
-    textAlign: 'center'
-  }
 
 });

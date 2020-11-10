@@ -61,11 +61,13 @@ export default function Login() {
       Animated.spring(offset.x, {
         toValue: 0,
         speed: 4,
-        bounciness: 10
+        bounciness: 10,
+        useNativeDriver: false
       }),
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 200
+        duration: 200,
+        useNativeDriver: false
       })
     ]).start();
   }, []);
@@ -76,21 +78,25 @@ export default function Login() {
       Animated.parallel([
         Animated.timing(logoSize.x, {
           toValue: 0,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         }),
         Animated.timing(logoSize.y, {
           toValue: 0,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         })
       ]),
       Animated.parallel([
         Animated.timing(godoys.x, {
           toValue: 200,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         }),
         Animated.timing(godoys.y, {
           toValue: 60,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         })
       ])
     ]).start();
@@ -101,21 +107,25 @@ export default function Login() {
       Animated.parallel([
         Animated.timing(godoys.x, {
           toValue: 0,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         }),
         Animated.timing(godoys.y, {
           toValue: 0,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         })
       ]),
       Animated.parallel([
         Animated.timing(logoSize.x, {
           toValue: 200,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         }),
         Animated.timing(logoSize.y, {
           toValue: 200,
-          duration: 100
+          duration: 100,
+          useNativeDriver: false
         })
       ])
     ]).start()

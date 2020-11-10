@@ -35,7 +35,7 @@ export default function Store() {
             detail: childItem.val().detail,
             imageURL: childItem.val().imageURL
           };
-          setProducts(oldArray => [...oldArray, products]);
+          setProducts(oldArray => [...oldArray, products].reverse());
         })
         setLoading(false);
       })
@@ -52,7 +52,7 @@ export default function Store() {
         :
         <FlatList style={styles.flatContainer}
           showsVerticalScrollIndicator={false}
-          data={products.reverse()}
+          data={products}
           keyExtractor={item => item.key}
           renderItem={({ item: product }) => (
             <TouchableOpacity

@@ -26,7 +26,8 @@ export default StyleSheet.create({
   image: {
     width: 150,
     height: 150,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor: '#737373',
   },
 
   name: {

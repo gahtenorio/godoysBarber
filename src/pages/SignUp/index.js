@@ -83,11 +83,13 @@ export default function SignUp() {
       Animated.spring(offset.x, {
         toValue: 0,
         speed: 4,
-        bounciness: 10
+        bounciness: 10,
+        useNativeDriver: false
       }),
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 200
+        duration: 200,
+        useNativeDriver: false
       })
     ]).start();
   }, []);
@@ -96,11 +98,13 @@ export default function SignUp() {
     Animated.parallel([
       Animated.timing(logoSize.x, {
         toValue: 0,
-        duration: 200
+        duration: 200,
+        useNativeDriver: false
       }),
       Animated.timing(logoSize.y, {
         toValue: 0,
-        duration: 200
+        duration: 200,
+        useNativeDriver: false
       })
     ]).start();
   }
@@ -109,11 +113,13 @@ export default function SignUp() {
     Animated.parallel([
       Animated.timing(logoSize.x, {
         toValue: 200,
-        duration: 200
+        duration: 200,
+        useNativeDriver: false
       }),
       Animated.timing(logoSize.y, {
         toValue: 200,
-        duration: 200
+        duration: 200,
+        useNativeDriver: false
       })
     ]).start()
   }

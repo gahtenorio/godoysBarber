@@ -9,6 +9,7 @@ import {
   FlatList,
   Image,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 
 import styles from './styles';
@@ -53,14 +54,22 @@ export default function Home() {
 
   return (
     <>
-      <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.textContainer}>
           <Text style={styles.helloText}>Bem-vindo, {user && user.name}</Text>
           <Text style={styles.description}>Veja nossos serviços disponíveis</Text>
         </View>
 
         {loading ?
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#191919' }}>
+          <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '60%'
+          }}>
             <ActivityIndicator size='large' color='#FFF' />
           </View>
           :
@@ -93,7 +102,7 @@ export default function Home() {
           />
         }
 
-      </View>
+      </ScrollView>
       <SelectServiceModal
         show={modalVisible}
         setShow={setModalVisible}

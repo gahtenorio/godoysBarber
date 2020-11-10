@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../Contexts/auth';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,7 +9,8 @@ import {
   Animated,
   ActivityIndicator,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  Image
 } from 'react-native';
 
 import styles from './styles';
@@ -19,11 +20,7 @@ export default function Login() {
 
   const navigation = useNavigation();
 
-  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }));
-  const [opacity] = useState(new Animated.Value(0));
-  const [logoSize] = useState(new Animated.ValueXY({ x: 200, y: 200 }));
-
-  const { signInWithFacebook, signInWithGoogle, lottieLoading, facebookLoading, googleLoading } = useContext(AuthContext);
+  const { signInWithFacebook, signInWithGoogle, facebookLoading, googleLoading } = useContext(AuthContext);
 
   function navigateToSignUp() {
     navigation.navigate('SignUp');
@@ -41,50 +38,16 @@ export default function Login() {
     signInWithGoogle();
   }
 
-  useEffect(() => {
-    Animated.parallel([
-      Animated.spring(offset.y, {
-        toValue: 0,
-        speed: 4,
-        bounciness: 20
-      }),
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 200
-      })
-    ]).start();
-  }, []);
-
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Animated.Image
-          style={[
-            {
-              width: logoSize.x,
-              height: logoSize.y
-            },
-            {
-              opacity: opacity,
-              transform: [
-                { translateY: offset.y }
-              ]
-            }
-          ]
-          }
+        <Image
+          style={styles.image}
           source={logo}
         />
 
-        <Animated.View
-          style={[
-            styles.inputContainer,
-            {
-              opacity: opacity,
-              transform: [
-                { translateY: offset.y }
-              ]
-            }
-          ]}
+        <View
+          style={styles.inputContainer}
         >
 
           <RectButton
@@ -119,7 +82,7 @@ export default function Login() {
               )
             }
           </RectButton>
-        </Animated.View>
+        </View>
       </SafeAreaView>
 
       <View style={styles.footer}>

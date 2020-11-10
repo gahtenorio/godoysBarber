@@ -49,16 +49,19 @@ export default function AuthProvider({ children }) {
       setFacebookLoading(true);
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
+      console.log(token)
+
       firebase.auth().signInWithCredential(credential)
         .then(async (value) => {
           let uid = value.user.uid;
+          console.log(uid)
           firebase.database().ref('users').child(uid).set({
             name: value.user.displayName,
-            photoURL: value.user.photoURL,
+            photoURL: `${value.user.photoURL}?access_token=${token}`
           }).then(() => {
             let data = {
               name: value.user.displayName,
-              photoURL: value.user.photoURL,
+              photoURL: `${value.user.photoURL}?access_token=${token}`,
               uid: uid,
               email: value.user.email
             }

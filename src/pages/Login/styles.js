@@ -8,6 +8,11 @@ export default StyleSheet.create({
     backgroundColor: '#040404'
   },
 
+  image: {
+    width: 200,
+    height: 200
+  },
+
   inputContainer: {
     width: '90%',
     alignItems: 'center',

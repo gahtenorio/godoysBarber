@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { TextInputMask } from 'react-native-masked-text';
 import { AuthContext } from '../../Contexts/auth';
 import firebase from '../../services/firebase';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Modal,
   Text,
   TouchableOpacity,
   ScrollView,
-  TextInput,
   Keyboard,
   TouchableNativeFeedback,
   TouchableHighlight,
@@ -63,6 +64,8 @@ const hoursSaturday = [
 
 export default function SelectServiceModal({ show, setShow, serviceName, servicePrice }) {
 
+  const navigation = useNavigation();
+
   const { user } = useContext(AuthContext);
 
   const [selectedYear, setSelectedYear] = useState(0);
@@ -75,6 +78,7 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
 
   const [loading, setLoading] = useState(false);
 
+  const [modalSuccessVisible, setModalSuccessVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalText, setModalText] = useState('');
@@ -125,21 +129,16 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
     setShow(false);
   }
 
-  function closeModal() {
-    setModalVisible(false);
-  }
-
   async function handleFinishButton() {
+    Keyboard.dismiss();
     setLoading(true);
-    console.log(phone.length);
-
     if (
       selectedYear > 0 &&
       selectedMonth > 0 &&
       selectedDay > 0 &&
       selectedHour != null
     ) {
-      if (phone.length < 8) {
+      if (phone.length < 14) {
         setLoading(false);
         setModalTitle('Houve um erro 😕');
         setModalText('É necessário informar um número de telefone válido');
@@ -147,7 +146,8 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
       } else {
 
         let key = await (await firebase.database().ref('schedules').child(user.uid).push()).key;
-        await firebase.database().ref('schedules').child(user.uid).child(key).set({
+        await firebase.database().ref('schedules').child('schedule').child(key).set({
+          uid: user.uid,
           name: user.name,
           email: user.email,
           photoURL: user.photoURL,
@@ -158,13 +158,9 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
           hour: selectedHour,
           status: 'Aguardando confirmação'
         }).then(() => {
-          setShow(false);
           setLoading(false);
-          setModalTitle('Sua solicitação foi enviada');
-          setModalText('Fique atento, verifique seus agendamentos, vamos analizar sua solicitação e retorna-lo o mais rápido possível!')
-          setModalVisible(true);
+          setModalSuccessVisible(true);
 
-          setPhone('');
         }).catch((error) => {
           console.log(error);
           setLoading(False);
@@ -196,6 +192,12 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
     setSelectedYear(mountDate.getFullYear());
     setSelectedMonth(mountDate.getMonth());
     setSelectedDay(0);
+  }
+
+  function handleFinish() {
+    navigation.navigate('Agendamentos');
+    setShow(false);
+    setModalSuccessVisible(false);
   }
 
   return (
@@ -311,12 +313,17 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
               }
 
               <View style={styles.modalItem}>
-                <TextInput
+                <TextInputMask
+                  type={'cel-phone'}
+                  options={{
+                    maskType: 'BRL',
+                    withDDD: true,
+                    dddMask: '(99)'
+                  }}
                   style={styles.input}
                   placeholder='Seu telefone para contato'
                   placeholderTextColor='#737380'
                   keyboardType='phone-pad'
-                  maxLength={11}
                   value={phone}
                   onChangeText={setPhone}
                 />
@@ -349,7 +356,29 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
 
               <TouchableOpacity
                 style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
-                onPress={closeModal}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.textStyle}>OK</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalSuccessVisible}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>Sua solicitação foi enviada!</Text>
+              <Text style={styles.modalText}>Fique atento, verifique seus agendamentos, vamos analizar sua solicitação e retorna-lo o mais rápido possível!</Text>
+
+              <TouchableOpacity
+                style={{ ...styles.openButton, backgroundColor: '#D2691E' }}
+                onPress={handleFinish}
               >
                 <Text style={styles.textStyle}>OK</Text>
               </TouchableOpacity>
