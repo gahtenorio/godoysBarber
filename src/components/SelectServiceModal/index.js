@@ -161,6 +161,11 @@ export default function SelectServiceModal({ show, setShow, serviceName, service
           setLoading(false);
           setModalSuccessVisible(true);
 
+          firebase.database().ref('users').child('lNNBv4nE8lcwe377mVVEcy5vJHo2')
+            .update({
+              notification: true
+            })
+
         }).catch((error) => {
           console.log(error);
           setLoading(False);
