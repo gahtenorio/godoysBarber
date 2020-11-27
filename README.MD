@@ -10,7 +10,6 @@
 <img src="./github/bootAnimation.gif" alt="Godoy's Barber" width="400">
 <img src="./github/login.gif" alt="Godoy's Barber" width="400">
 <img src="./github/home.gif" alt="Godoy's Barber" width="400"> 
-<br>
 <img src="./github/schedules.jpg" alt="Godoy's Barber" width="400">
 <br>
 <br>
