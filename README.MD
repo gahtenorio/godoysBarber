@@ -28,7 +28,6 @@ This project was developed with the following technologies:
 - ✔️ Firebase
 - ✔️ Facebook API
 - ✔️ Google API
-- ✔️ Lottie
 
 <br>
 
