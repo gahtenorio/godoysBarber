@@ -23,16 +23,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gah.godoysbarber",
       "config": {
-        "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.336361315713-l8tk2h5h9b1crfakkg57l1p7bkalejcp"
-        }
       }
     },
-    "android": {
-      "package": "com.gah.godoysbarber",
-      "googleServicesFile": "./google-services.json"
-    }
   }
 }
